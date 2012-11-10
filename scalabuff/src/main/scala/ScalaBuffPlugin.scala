@@ -17,7 +17,7 @@ object ScalaBuffPlugin {
     scalaSource in scalaBuffConfig <<= (generatedSource in scalaBuffConfig).identity,
     version in scalaBuffConfig := "0.10-SNAPSHOT",
     generatorExecution in scalaBuffConfig := ((srcDir: File, target: File, includePaths: Seq[File], log:Logger) => executeScalaBuff(srcDir, target, includePaths, log)),
-    libraryDependencies <+= (scalaVersion, version in scalaBuffConfig)((sv, sbv) => "scalabuffruntime" % "scalabuffruntime_%s".format(sv) % sbv)
+    libraryDependencies <+= (scalaVersion, version in scalaBuffConfig)((sv, sbv) => "net.sandrogrzicic.scalabuff" % "runtime_%s".format(sv) % sbv)
   )
 
   private def executeScalaBuff(srcDir: File, target: File, includePaths: Seq[File], log: Logger) = {
@@ -28,9 +28,9 @@ object ScalaBuffPlugin {
     0
   }
 
-  def addProtocCompatibility = libraryDependencies <++= (version in scalaBuffConfig)(sbv => Seq(
-    "scalabuffruntime" % "scalabuffruntime_2.9.1" % sbv % protobufConfig.name,
-    "scalabuffruntime" % "scalabuffruntime_2.9.1" % sbv)
+  def addProtocCompatibility = libraryDependencies <++= (scalaVersion, version in scalaBuffConfig)((sv,sbv) => Seq(
+    "net.sandrogrzicic.scalabuff" % "runtime_%s".format(sv) % sbv % protobufConfig.name,
+    "net.sandrogrzicic.scalabuff" % "runtime_%s".format(sv) % sbv)
   )
 
 }

@@ -34,7 +34,7 @@ object build extends Build{
     settings = buildSettings ++ Seq[Setting[_]](
       resolvers += "gseitz @ github" at "http://gseitz.github.com/maven/",
       libraryDependencies ++= Seq(
-        "scalabuff" %% "scalabuff" % "0.9"
+        "net.sandrogrzicic.scalabuff" %% "compiler" % "0.10-SNAPSHOT"
       )
     ),
     dependencies = Seq(protocPlugin)
